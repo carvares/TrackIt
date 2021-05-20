@@ -12,7 +12,8 @@ export default function Home(){
     const history = useHistory();
     const {userInfo,setUserInfo} = useContext(UserContext);
 
-    function login(){
+    function login(event){
+        event.preventDefault();
         setInput(true);
         const promisse = axios.post(
         'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login',
@@ -23,7 +24,7 @@ export default function Home(){
     }
     function loginSucess(request){
         setUserInfo(request.data)
-        history.push("/hoje")
+        history.push("/habitos")
     }
     function loginFail(){
         setInput(false);
@@ -32,9 +33,11 @@ export default function Home(){
     return(
         <LoginFront>
         <img src = "img/logo.png"></img>
-        <input type="text" placeholder="email" disabled={input} value={email} onChange={(e)=>setEmail(e.target.value)}></input>
-        <input type="text" placeholder="senha" disabled={input} value={password} onChange={(e)=>setPassword(e.target.value)}></input>
-        <button onClick={login}>Entrar</button>
+        <form onSubmit={login}>
+        <input type="email" placeholder="email" disabled={input} value={email} onChange={(e)=>setEmail(e.target.value)}></input>
+        <input type="password" placeholder="senha" disabled={input} value={password} onChange={(e)=>setPassword(e.target.value)}></input>
+        <button type="submit">Entrar</button>
+        </form>
         <Link to="/cadastro"><p>Não tem uma conta? Cadastre-se!</p></Link>
 
         </LoginFront>

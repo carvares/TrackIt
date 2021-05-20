@@ -11,7 +11,9 @@ export default function Signup(){
     const history = useHistory();
     const [input,setInput] = useState(false);
 
-    function newAccount(){
+    function newAccount(event){
+        event.preventDefault();
+
         setInput(true);
         const requisition = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up', 
         {email: email, name: name , image: image, password: password})
@@ -27,11 +29,13 @@ export default function Signup(){
     return(
         <LoginFront>
         <img src = "img/logo.png"></img>
-        <input type="text" placeholder="email" disabled={input} value={email} onChange={(e)=>setEmail(e.target.value)}></input>
-        <input type="text" placeholder="senha" disabled={input} value={password} onChange={(e)=>setPassword(e.target.value)}></input>
+        <form onSubmit={newAccount}>
+        <input type="email" placeholder="email" disabled={input} value={email} onChange={(e)=>setEmail(e.target.value)}></input>
+        <input type="password" placeholder="senha" disabled={input} value={password} onChange={(e)=>setPassword(e.target.value)}></input>
         <input type="text" placeholder="nome" disabled={input} value={name} onChange={(e)=>setName(e.target.value)}></input>
-        <input type="text" placeholder="foto" disabled={input} value={image} onChange={(e)=>setImage(e.target.value)}></input>
-        <button onClick={newAccount}>Casdastrar</button>
+        <input type="url" placeholder="foto" disabled={input} value={image} onChange={(e)=>setImage(e.target.value)}></input>
+        <button type="submit">Casdastrar</button>
+        </form>
         <Link to="/"><p>Já tem uma conta? Faça login!</p></Link>
 
         </LoginFront>
