@@ -11,15 +11,7 @@ export default function Bottombar(){
     let filtred = todayHabits.filter(elem => elem.done)
     setPorcentage(todayHabits.length >=0? (filtred.length/todayHabits.length) * 100: 0)
     
-    useEffect(()=>{
-   
-    if(porcentage > 0){
-    setHabitsDone(Math.round(porcentage))
-    } else{
-        setHabitsDone(0)
-    }
-},[])
-      
+    
      
 
     
