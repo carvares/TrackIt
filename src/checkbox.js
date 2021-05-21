@@ -2,6 +2,7 @@ import axios from "axios"
 import { useContext } from "react"
 import styled from "styled-components"
 import UserContext from "./contexts/UserContext"
+import checkmark from "./img/Vector.png"
 
 export default function Checkbox({id, done} ){
     const {userInfo,setTodayHabits} = useContext(UserContext);
@@ -22,7 +23,7 @@ export default function Checkbox({id, done} ){
         promisse.then((r)=> setTodayHabits(r.data))
     }
     return(
-        <Box  done={done} onClick={check}><img src="/img/Vector.png" alt="checkbox"></img></Box>
+        <Box  done={done} onClick={check}><img src={checkmark} alt="checkbox"></img></Box>
     )
 }
 

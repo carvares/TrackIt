@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import UserContext from "./contexts/UserContext"
 import Loader from 'react-loader-spinner';
-
+import logo from "./img/logo.png"
 
 export default function Home(){
     const[email, setEmail] = useState("");
@@ -33,7 +33,7 @@ export default function Home(){
     }
     return(
         <LoginFront input = {input}>
-        <img src = "img/logo.png" alt="logo"></img>
+        <img src = {logo} alt="logo"></img>
         <form onSubmit={login}>
         <input type="email" placeholder="email" disabled={input} value={email} onChange={(e)=>setEmail(e.target.value)}></input>
         <input type="password" placeholder="senha" disabled={input} value={password} onChange={(e)=>setPassword(e.target.value)}></input>

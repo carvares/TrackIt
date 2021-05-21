@@ -3,7 +3,7 @@ import { useContext, useEffect } from "react"
 import styled from "styled-components";
 import UserContext from "./contexts/UserContext";
 import Daybox from "./daybox";
-
+import trashcan from './img/trash-outline.svg'
 
 
 
@@ -31,7 +31,7 @@ export default function Tasks(){
             return(
             <Task key={i.id}>
                 <h1>{i.name}</h1>
-                <img onClick={()=>removeHabit(i.id)} src='/img/trash-outline.svg' alt="trash"></img>
+                <img onClick={()=>removeHabit(i.id)} src={trashcan} alt="trash"></img>
                 <div>
                     
                    
