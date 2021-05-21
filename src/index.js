@@ -15,10 +15,11 @@ function App(){
     const [todayHabits, setTodayHabits] = useState([]);
     const [habitsDone, setHabitsDone] = useState([null]);
     const [plus, setPlus] = useState(false)
+    const [ porcentage, setPorcentage] = useState(0)
 
 return(
     <>
-    <UserContext.Provider value={{userInfo, setUserInfo,createHabit,setCreateHabit, plus, setPlus,habits,setHabits, todayHabits, setTodayHabits,habitsDone, setHabitsDone}}>
+    <UserContext.Provider value={{userInfo, setUserInfo,createHabit,setCreateHabit, plus, setPlus,habits,setHabits, todayHabits, setTodayHabits,habitsDone, setHabitsDone, porcentage, setPorcentage}}>
     <BrowserRouter>
         <Switch>
             <Route path="/" exact>
@@ -27,6 +28,7 @@ return(
             <Route path="/cadastro" exact>
                 <Signup/>
             </Route>
+            
             <Route path="/habitos">
                 <Habits/>
             </Route>

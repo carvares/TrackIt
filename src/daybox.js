@@ -10,7 +10,7 @@ export default function Daybox({ids,setIds,days}){
     weekdays.forEach(element => {
        if(days.includes(element.id)){
             element.status = true;
-            console.log("entrou")
+            
        }
     
 
@@ -36,14 +36,14 @@ export default function Daybox({ids,setIds,days}){
     }
     
     if(ids === null && setIds === null ){
-        console.log(weekdays.status);
+        
 
 
         
         return(
             <>
             {weekdays.map((day)=>
-            ( <Box selected={day.status}> {day.name} </Box> )
+            ( <Box key={day.id} selected={day.status}> {day.name} </Box> )
             )}
             </>
             
@@ -52,7 +52,7 @@ export default function Daybox({ids,setIds,days}){
 
     return(
 
-            <Box selected={selected}  onClick={()=>SelectDay(days.id)}> {days.name} </Box>
+            <Box key = {days.id} selected={selected}  onClick={()=>SelectDay(days.id)}> {days.name} </Box>
 
     )
     }

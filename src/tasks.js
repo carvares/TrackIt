@@ -17,7 +17,7 @@ export default function Tasks(){
     useEffect(()=> {
         const requisition = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits',{headers:{"Authorization":`Bearer ${userInfo.token}`}})
         requisition.then((r)=>{setHabits(r.data)})
-        requisition.catch(()=> console.log("foi n"))
+        
     },[])
 
     if(habits.length < 1){
@@ -31,7 +31,7 @@ export default function Tasks(){
             return(
             <Task key={i.id}>
                 <h1>{i.name}</h1>
-                <img onClick={()=>removeHabit(i.id)} src='/img/trash-outline.svg'></img>
+                <img onClick={()=>removeHabit(i.id)} src='/img/trash-outline.svg' alt="trash"></img>
                 <div>
                     
                    
@@ -65,7 +65,7 @@ export default function Tasks(){
 }
 
 const HabitsList = styled.div`
-    padding-bottom:150px;
+    padding-bottom:120px;
 `
 
 const Task = styled.div`

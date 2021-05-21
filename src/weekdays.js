@@ -7,7 +7,7 @@ import Loader from 'react-loader-spinner';
 
 export default function WeekDays(){
     const days = [{name:"D", id:0},{name:"S",id:1},{name:"T",id:2},{name:"Q",id:3},{name:"Q",id:4},{name:"S",id:5},{name:"S",id:6}]
-    const {createHabit, setCreateHabit,userInfo,plus, setPlus,habits,setHabits} = useContext(UserContext);
+    const {userInfo, setPlus,habits,setHabits} = useContext(UserContext);
    
     const [name,setName] = useState("");
 

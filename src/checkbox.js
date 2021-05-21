@@ -4,7 +4,7 @@ import styled from "styled-components"
 import UserContext from "./contexts/UserContext"
 
 export default function Checkbox({id, done} ){
-    const {userInfo,setHabitsDone,setTodayHabits,habitsDone ,todayHabits} = useContext(UserContext);
+    const {userInfo,setTodayHabits} = useContext(UserContext);
 
 
     function check(){

@@ -21,7 +21,7 @@ const Upbar = styled.div`
     z-index:1;
     top:0;
     left:0;
-    width:375px;
+    width:100%;
     height:70px;
     background-color:#126BA5;
     display:flex;

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import styled from "styled-components";
 import Bottombar from "./bottombar";
 import Checkbox from "./checkbox";
@@ -8,13 +8,13 @@ import Topbar from "./topbar";
 
 
 export default function Today(){
-    const {userInfo, setTodayHabits, todayHabits,habitsDone} = useContext(UserContext);
+    const {userInfo, setTodayHabits, todayHabits,porcentage} = useContext(UserContext);
     
     useEffect(()=>{
       const promisse =  axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today',{headers:{"Authorization":`Bearer ${userInfo.token}`}})
       promisse.then(r => setTodayHabits(r.data))
     },[])
-    console.log(todayHabits);
+
     
     
     var dayjs = require('dayjs');
@@ -30,19 +30,19 @@ export default function Today(){
         <>
         <Topbar/>
         <Container>
-        <Tittle habitsDone={habitsDone}>
+        <Tittle porcentage={porcentage}>
             <h1>{now.format("dddd, D/MM" )}</h1>
-            <p >{habitsDone < 1? "Nenhum hábito concluido ainda":`${habitsDone}% dos hábitos concluídos` }</p>
+            <p >{porcentage > 0? `${Math.round(porcentage)}% dos hábitos concluídos`:"Nenhum hábito concluido ainda"}</p>
         </Tittle>
         {todayHabits.map((i)=>{
             return(
-            <TodayTask   >
+            <TodayTask key={i.id}  >
                 <div>
                 <h1>{i.name}</h1>
                 <p>Sequência atual:<Current ok={i.done}>{i.currentSequence}</Current> dias </p>
                 <p>Seu recorde:<Record ok={i.done} record = {()=> i.highestSequence === i.currentSequence? true:false}>{i.highestSequence}</Record> dias </p>
                 </div>
-                <Checkbox id={i.id} done={i.done}/>
+                <Checkbox key = {i.id} id={i.id} done={i.done}/>
             </TodayTask>
             )
         })}
@@ -66,7 +66,7 @@ const Tittle = styled.div`
         }
         &>p{
             font-size:18px;
-            color:${props => props.habitsDone <1?"#bababa":"#8FC549"};
+            color:${props => props.porcentage > 0?"#8FC549":"#bababa"};
             padding-bottom: 28px;
             
         }
@@ -119,7 +119,7 @@ const Container = styled.div`
     min-height:100vh;
     background-color:#f2f2f2;
     font-family:'Lexend Deca';
-     
+    padding-bottom: 120px;
 
     
 
