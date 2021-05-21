@@ -9,7 +9,7 @@ export default function Topbar(){
     return(
         <Upbar>
             <h1>TrackIt</h1>
-            <img src={userInfo.image}></img>
+            <img src={userInfo.image} alt="userimg"></img>
         </Upbar>
     )
 }
