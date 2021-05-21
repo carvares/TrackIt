@@ -3,6 +3,7 @@ import { useContext, useState } from "react"
 import styled from "styled-components"
 import UserContext from "./contexts/UserContext"
 import Daybox from "./daybox";
+import Loader from 'react-loader-spinner';
 
 export default function WeekDays(){
     const days = [{name:"D", id:0},{name:"S",id:1},{name:"T",id:2},{name:"Q",id:3},{name:"Q",id:4},{name:"S",id:5},{name:"S",id:6}]
@@ -11,16 +12,17 @@ export default function WeekDays(){
     const [name,setName] = useState("");
 
     const[ids,setIds] = useState([]);
-
+    const [input, setInput] = useState(false);
     
 
     
     function SendHabit(event){
         event.preventDefault();
-    
+        setInput(true)
+        
         const promisse = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits',{name:name,days:ids}, {headers:{"Authorization":`Bearer ${userInfo.token}`}})
         promisse.then((r)=>setHabits([...habits,r.data]))
-        promisse.catch(r=>console.log(r))
+        promisse.catch(()=> setInput(false))
         
 
     }
@@ -29,7 +31,7 @@ export default function WeekDays(){
     return(
         <AddTask>
             <form onSubmit={SendHabit}>
-            <input placeholder="nome do hábito" type="text" value={name} onChange={e => setName(e.target.value)}>
+            <input disabled={input} placeholder="nome do hábito" type="text" value={name} onChange={e => setName(e.target.value)}>
                 </input>
                 
                 <div>
@@ -43,7 +45,7 @@ export default function WeekDays(){
                 <Buttons>
                     
                     <Cancel onClick={()=> setPlus(false)}>Cancelar</Cancel>
-                    <Save type="submit" >Salvar</Save>
+                    <Save input ={input} type="submit" disabled={input} >{input?<Loader type="ThreeDots" color="#ffffff" height={30} width={35}/>:"Salvar"}</Save>
                     
                 </Buttons>
                 </form>
@@ -95,11 +97,11 @@ const AddTask = styled.div`
         height:35px;
         background-color:#fff;
         margin: 20px 0;
-        background-color: #52b6ff;
+        background-color:#52b6ff;
         font-size:16px;
         color:#fff;
         border:none;
         border-radius:5px;
-
+        opacity: ${props => props.input? "0.7": "1"};
 
     `

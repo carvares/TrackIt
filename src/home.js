@@ -3,6 +3,7 @@ import { useState , useContext} from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import UserContext from "./contexts/UserContext"
+import Loader from 'react-loader-spinner';
 
 
 export default function Home(){
@@ -31,12 +32,12 @@ export default function Home(){
         alert("login ou senha invalido(s)")
     }
     return(
-        <LoginFront>
+        <LoginFront input = {input}>
         <img src = "img/logo.png" alt="logo"></img>
         <form onSubmit={login}>
         <input type="email" placeholder="email" disabled={input} value={email} onChange={(e)=>setEmail(e.target.value)}></input>
         <input type="password" placeholder="senha" disabled={input} value={password} onChange={(e)=>setPassword(e.target.value)}></input>
-        <button type="submit">Entrar</button>
+        <button disabled={input} type="submit">{input?<Loader type="ThreeDots" color="#ffffff" height={40} width={80}/>:"Entrar"}</button>
         </form>
         <Link to="/cadastro"><p>Não tem uma conta? Cadastre-se!</p></Link>
 
@@ -74,6 +75,7 @@ const LoginFront = styled.div`
         font-size:21px;
         border:none;
         margin:0 0 19px 0; 
+        opacity: ${props => props.input? "0.7":"1"};
         
 
     }

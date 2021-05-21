@@ -8,7 +8,7 @@ import Topbar from "./topbar";
 
 
 export default function Today(){
-    const {userInfo, setTodayHabits, todayHabits} = useContext(UserContext);
+    const {userInfo, setTodayHabits, todayHabits,habitsDone} = useContext(UserContext);
     
     useEffect(()=>{
       const promisse =  axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today',{headers:{"Authorization":`Bearer ${userInfo.token}`}})
@@ -30,19 +30,19 @@ export default function Today(){
         <>
         <Topbar/>
         <Container>
-        <Tittle>
+        <Tittle habitsDone={habitsDone}>
             <h1>{now.format("dddd, D/MM" )}</h1>
-            <p>Nenhum hábito concluido ainda</p>
+            <p >{habitsDone < 1? "Nenhum hábito concluido ainda":`${habitsDone}% dos hábitos concluídos` }</p>
         </Tittle>
         {todayHabits.map((i)=>{
             return(
-            <TodayTask>
+            <TodayTask   >
                 <div>
                 <h1>{i.name}</h1>
-                <p>Sequência atual:{i.currentSequence} dias </p>
-                <p>Seu recorde:{i.highestSequence} dias </p>
+                <p>Sequência atual:<Current ok={i.done}>{i.currentSequence}</Current> dias </p>
+                <p>Seu recorde:<Record ok={i.done} record = {()=> i.highestSequence === i.currentSequence? true:false}>{i.highestSequence}</Record> dias </p>
                 </div>
-                <Checkbox id={i.id} done={i.done} setTodayHabits={setTodayHabits}/>
+                <Checkbox id={i.id} done={i.done}/>
             </TodayTask>
             )
         })}
@@ -64,11 +64,13 @@ const Tittle = styled.div`
             color:#126BA5;
             padding-bottom:5px;
         }
-        p{
+        &>p{
             font-size:18px;
-            color:#bababa;
+            color:${props => props.habitsDone <1?"#bababa":"#8FC549"};
             padding-bottom: 28px;
+            
         }
+
 
 `
 const TodayTask = styled.div`
@@ -88,16 +90,30 @@ const TodayTask = styled.div`
             font-size:20px;
             color:#666;
             padding-bottom:10px;
-    }
+        }
         p{
             font-size:13px;
             color:#666;
             padding-bottom:4px;
+          
         }
+        
        }
        
 
 `
+const Current = styled.span`
+    font-size:13px;
+                 color:${props => props.ok?"#8FC549":"#bababa"};
+                 padding-bottom:4px;
+`
+const Record = styled.span`
+    font-size:13px;
+                 color:${props => props.record && props.ok?"#8FC549":"#bababa"};
+                 padding-bottom:4px;
+`
+
+
 const Container = styled.div`
     width:100%;
     min-height:100vh;

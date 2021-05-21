@@ -2,7 +2,7 @@ import {buildStyles, CircularProgressbar} from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import styled from "styled-components"
 import {Link} from 'react-router-dom';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import UserContext from './contexts/UserContext';
 
 
@@ -11,11 +11,13 @@ export default function Bottombar(){
 
 
     let filtred = todayHabits.filter(elem => elem.done)
-    console.log(filtred)
-    console.log(todayHabits)
-        
-
+    console.log(filtred.length)
     let porcentage = (filtred.length/todayHabits.length) * 100
+    setHabitsDone(Math.round(porcentage))
+      
+     
+
+    
 
     
     return(

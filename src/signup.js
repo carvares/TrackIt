@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-
+import Loader from 'react-loader-spinner';
 export default function Signup(){
     const[email, setEmail] = useState("");
     const[password, setPassword] = useState("");
@@ -27,14 +27,14 @@ export default function Signup(){
     
     
     return(
-        <LoginFront>
+        <LoginFront input={input}>
         <img src = "img/logo.png" alt="logo"></img>
         <form onSubmit={newAccount}>
         <input type="email" placeholder="email" disabled={input} value={email} onChange={(e)=>setEmail(e.target.value)}></input>
         <input type="password" placeholder="senha" disabled={input} value={password} onChange={(e)=>setPassword(e.target.value)}></input>
         <input type="text" placeholder="nome" disabled={input} value={name} onChange={(e)=>setName(e.target.value)}></input>
         <input type="url" placeholder="foto" disabled={input} value={image} onChange={(e)=>setImage(e.target.value)}></input>
-        <button type="submit">Casdastrar</button>
+        <button type="submit">{input?<Loader type="ThreeDots" color="#ffffff" height={40} width={80}/>:"Cadastrar"}</button>
         </form>
         <Link to="/"><p>Já tem uma conta? Faça login!</p></Link>
 
@@ -72,6 +72,7 @@ const LoginFront = styled.div`
         font-size:21px;
         border:none;
         margin:0 0 19px 0; 
+        opacity: ${props => props.input? "0.7":"1"};
         
 
     }
