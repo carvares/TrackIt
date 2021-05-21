@@ -2,13 +2,14 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import Bottombar from "./bottombar";
+import Checkbox from "./checkbox";
 import UserContext from "./contexts/UserContext";
 import Topbar from "./topbar";
 
 
 export default function Today(){
-    const {userInfo} = useContext(UserContext);
-    const [todayHabits, setTodayHabits] = useState([]);
+    const {userInfo, setTodayHabits, todayHabits} = useContext(UserContext);
+    
     useEffect(()=>{
       const promisse =  axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today',{headers:{"Authorization":`Bearer ${userInfo.token}`}})
       promisse.then(r => setTodayHabits(r.data))
@@ -16,16 +17,13 @@ export default function Today(){
     console.log(todayHabits);
     
     
-    var dayjs = require('dayjs')
-    let now = dayjs()
-    var updateLocale = require('dayjs/plugin/updateLocale')
-    dayjs.extend(updateLocale)
-
-    dayjs.updateLocale('pt-br', {
-  weekdays: [
-    "Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"
-  ]
-})
+    var dayjs = require('dayjs');
+    let now = dayjs();
+    var updateLocale = require('dayjs/plugin/updateLocale');
+    dayjs.extend(updateLocale);
+    dayjs.updateLocale('en', {
+    weekdays: ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"]
+});
     
 
     return(
@@ -44,7 +42,7 @@ export default function Today(){
                 <p>Sequência atual:{i.currentSequence} dias </p>
                 <p>Seu recorde:{i.highestSequence} dias </p>
                 </div>
-                <span><img src="/img/Vector.png"></img></span>
+                <Checkbox id={i.id} done={i.done} setTodayHabits={setTodayHabits}/>
             </TodayTask>
             )
         })}
@@ -97,20 +95,11 @@ const TodayTask = styled.div`
             padding-bottom:4px;
         }
        }
-       span{
-           width:69px;
-           height:69px;
-           margin-right:13px;
-           background-color:#e7e7e7;
-           display:flex;
-           justify-content:center;
-           align-items:center;
-
-       }
+       
 
 `
 const Container = styled.div`
-    width:375px;
+    width:100%;
     min-height:100vh;
     background-color:#f2f2f2;
     font-family:'Lexend Deca';

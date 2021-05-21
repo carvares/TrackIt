@@ -1,32 +1,22 @@
 import axios from "axios";
 import { useContext, useState } from "react"
 import styled from "styled-components"
-import UserContext from "../contexts/UserContext"
+import UserContext from "./contexts/UserContext"
+import Daybox from "./daybox";
 
 export default function WeekDays(){
-    const days = [{day:"D", id:0},{day:"S",id:1},{day:"T",id:2},{day:"Q",id:3},{day:"Q",id:4},{day:"S",id:5},{day:"S",id:6}]
+    const days = [{name:"D", id:0},{name:"S",id:1},{name:"T",id:2},{name:"Q",id:3},{name:"Q",id:4},{name:"S",id:5},{name:"S",id:6}]
     const {createHabit, setCreateHabit,userInfo,plus, setPlus,habits,setHabits} = useContext(UserContext);
-    const [selected, setSelected] = useState(false)
+   
     const [name,setName] = useState("");
 
     const[ids,setIds] = useState([]);
 
-    function SelectDay(newid){
-        const index = ids.findIndex((element) => element===newid? true:false)
+    
 
-        if(index == -1){
-            setIds([...ids,newid])
-            
-            setSelected(true)
-        } else{
-            let arr = ids
-            arr.splice(index,1);
-            setIds(arr)
-            setSelected(false);
-    }
-
-    }
-    function SendHabit(){
+    
+    function SendHabit(event){
+        event.preventDefault();
     
         const promisse = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits',{name:name,days:ids}, {headers:{"Authorization":`Bearer ${userInfo.token}`}})
         promisse.then((r)=>setHabits([...habits,r.data]))
@@ -38,23 +28,25 @@ export default function WeekDays(){
 
     return(
         <AddTask>
-            <forms>
+            <form onSubmit={SendHabit}>
             <input placeholder="nome do hábito" type="text" value={name} onChange={e => setName(e.target.value)}>
                 </input>
-                </forms>
+                
                 <div>
                 
                 {days.map(d => {
                     return(
-                    <span selected={selected} key={d.id} onClick={()=>SelectDay(d.id)}>{d.day}</span>
+                    <Daybox  ids={ids} setIds={setIds} days={d} high ={null}/>
                     )
                 })}
                 </div>
                 <Buttons>
                     
                     <Cancel onClick={()=> setPlus(false)}>Cancelar</Cancel>
-                    <Save onClick={SendHabit}>Salvar</Save>
+                    <Save type="submit" >Salvar</Save>
+                    
                 </Buttons>
+                </form>
                 </AddTask>
     )
 }
@@ -80,20 +72,7 @@ const AddTask = styled.div`
             border-radius:5px;
             margin: 18px 18px 8px 18px;
         }
-        span{
-            width:30px;
-            height:30px;
-            border: 1px solid #D5D5D5;
-            box-sizing: border-box;
-            border-radius: 5px;
-            margin: 0 4px 0 0;
-            background-color:${props => props.selected? "#d5d5d5":"#fff"};
-            color:#D5D5D5;
-            font-size: 20px;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-        }
+        
 
     `
     const Buttons = styled.div`

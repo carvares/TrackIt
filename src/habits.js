@@ -1,13 +1,13 @@
 import styled from "styled-components"
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import UserContext from "./contexts/UserContext";
-import WeekDays from "./styles/weekdays";
+import WeekDays from "./weekdays";
 import Tasks from "./tasks";
 import Topbar from "./topbar";
 import Bottombar from "./bottombar";
 
 export default function Habits(){
-    const{userInfo,plus, setPlus} = useContext(UserContext);
+    const{plus, setPlus} = useContext(UserContext);
 
 
 

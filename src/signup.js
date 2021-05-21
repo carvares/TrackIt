@@ -28,7 +28,7 @@ export default function Signup(){
     
     return(
         <LoginFront>
-        <img src = "img/logo.png"></img>
+        <img src = "img/logo.png" alt="logo"></img>
         <form onSubmit={newAccount}>
         <input type="email" placeholder="email" disabled={input} value={email} onChange={(e)=>setEmail(e.target.value)}></input>
         <input type="password" placeholder="senha" disabled={input} value={password} onChange={(e)=>setPassword(e.target.value)}></input>

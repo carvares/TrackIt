@@ -10,7 +10,7 @@ export default function Home(){
     const[password, setPassword] = useState("");
     const[input, setInput] = useState(false);
     const history = useHistory();
-    const {userInfo,setUserInfo} = useContext(UserContext);
+    const {setUserInfo} = useContext(UserContext);
 
     function login(event){
         event.preventDefault();
@@ -24,7 +24,7 @@ export default function Home(){
     }
     function loginSucess(request){
         setUserInfo(request.data)
-        history.push("/habitos")
+        history.push("/hoje")
     }
     function loginFail(){
         setInput(false);
@@ -32,7 +32,7 @@ export default function Home(){
     }
     return(
         <LoginFront>
-        <img src = "img/logo.png"></img>
+        <img src = "img/logo.png" alt="logo"></img>
         <form onSubmit={login}>
         <input type="email" placeholder="email" disabled={input} value={email} onChange={(e)=>setEmail(e.target.value)}></input>
         <input type="password" placeholder="senha" disabled={input} value={password} onChange={(e)=>setPassword(e.target.value)}></input>

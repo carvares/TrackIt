@@ -6,17 +6,19 @@ import Habits from './habits';
 import UserContext from './contexts/UserContext';
 import { useState } from 'react';
 import Today from './today'
-
+import History from './history'
 
 function App(){
     const [userInfo, setUserInfo] = useState("");
     const [createHabit, setCreateHabit] = useState("");
     const[habits,setHabits] = useState([]);
+    const [todayHabits, setTodayHabits] = useState([]);
+    const [habitsDone, setHabitsDone] = useState([null]);
     const [plus, setPlus] = useState(false)
 
 return(
     <>
-    <UserContext.Provider value={{userInfo, setUserInfo,createHabit,setCreateHabit, plus, setPlus,habits,setHabits}}>
+    <UserContext.Provider value={{userInfo, setUserInfo,createHabit,setCreateHabit, plus, setPlus,habits,setHabits, todayHabits, setTodayHabits,habitsDone, setHabitsDone}}>
     <BrowserRouter>
         <Switch>
             <Route path="/" exact>
@@ -30,6 +32,9 @@ return(
             </Route>
             <Route path="/hoje">
                 <Today/>
+            </Route>
+            <Route path="/historico">
+                <History/>
             </Route>
 
         </Switch>

@@ -2,14 +2,27 @@ import {buildStyles, CircularProgressbar} from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import styled from "styled-components"
 import {Link} from 'react-router-dom';
+import { useContext, useState } from 'react';
+import UserContext from './contexts/UserContext';
 
 
 export default function Bottombar(){
+    const {todayHabits,habitsDone, setHabitsDone} = useContext(UserContext);
+
+
+    let filtred = todayHabits.filter(elem => elem.done)
+    console.log(filtred)
+    console.log(todayHabits)
+        
+
+    let porcentage = (filtred.length/todayHabits.length) * 100
+
+    
     return(
         <Downbar>
         <Link to="/habitos"><div>Hábitos</div></Link>
         <Link to="/hoje"><Circle><CircularProgressbar
-                value={50}
+                value={porcentage}
                 text = "hoje"
                 background
                 backgroundPadding={6}
@@ -38,6 +51,9 @@ const Downbar = styled.div`
     display:flex;
     justify-content:space-evenly;
     align-items:center;
+    a{
+        text-decoration: none;
+    }
     div{
         font-family:'Lexend Deca';
         font-size:18px;
@@ -47,6 +63,7 @@ const Downbar = styled.div`
         justify-content:center;
         align-items:center;
         color:#52b6ff;
+        
     }
     `
 const Circle = styled.div`
