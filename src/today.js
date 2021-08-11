@@ -78,7 +78,7 @@ const TodayTask = styled.div`
     height:94px;
     background-color:#fff;
     border-radius:5px;
-    margin: 0 18px 10px 18px;
+    margin: 0 auto 10px auto;
     font-family:'Lexend Deca';
     display:flex;
     justify-content:space-between;
