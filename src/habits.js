@@ -54,7 +54,7 @@ export default function Habits(){
 
 
 const Container = styled.div`
-    width:375px;
+    width:100vw;
     min-height:100vh;
     background-color:#f2f2f2;
     font-family:'Lexend Deca';
