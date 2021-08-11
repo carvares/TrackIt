@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Loader from 'react-loader-spinner';
+import logo from "./img/logo.png"
 export default function Signup(){
     const[email, setEmail] = useState("");
     const[password, setPassword] = useState("");
@@ -28,7 +29,7 @@ export default function Signup(){
     
     return(
         <LoginFront input={input}>
-        <img src = "img/logo.png" alt="logo"></img>
+        <img src = {logo} alt="logo"></img>
         <form onSubmit={newAccount}>
         <input type="email" placeholder="email" disabled={input} value={email} onChange={(e)=>setEmail(e.target.value)}></input>
         <input type="password" placeholder="senha" disabled={input} value={password} onChange={(e)=>setPassword(e.target.value)}></input>
