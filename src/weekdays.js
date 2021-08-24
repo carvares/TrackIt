@@ -59,9 +59,8 @@ const AddTask = styled.div`
         width:340px;
         height:180px;
         background-color:#fff;
-        margin: 0 auto 0 auto;
         border-radius:5px;
-        margin: 20px 0 0 18px;
+        margin: 20px auto 0 auto;
         div{
             display:flex;
             margin: 0 0 0 18px;
